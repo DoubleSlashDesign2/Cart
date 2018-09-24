@@ -1,0 +1,14 @@
+{
+  "Colors": {
+    "Favorite": "blue"
+  },
+  "ConnectionStrings": {
+    "CartConnectionString": "server=.;Database=CartDb;Integrated Security=true;MultipleActiveResultSets=true;"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning"
+    }
+  }
+}
