@@ -79,6 +79,8 @@ namespace CartWeb
             }
             //app.UseExceptionHandler("/error");
 
+            app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
