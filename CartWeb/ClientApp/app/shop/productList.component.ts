@@ -23,4 +23,8 @@ export class ProductList implements OnInit {
                 }
             })
     }
+
+    addProduct(product: Product) {
+        this.dataService.AddToOrder(product);
+    }
 }
