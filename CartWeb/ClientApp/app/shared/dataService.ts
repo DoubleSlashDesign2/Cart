@@ -1,7 +1,7 @@
-﻿import { HttpClient } from '@angular/common/http';
+﻿import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable} from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 
 import { Product } from './product';
 import { Order, OrderItem } from "./order";
@@ -16,6 +16,9 @@ export class DataService {
     constructor(private http: HttpClient) {
     }
 
+    private token: string = "";
+    private tokenExpiration: Date;
+
     loadProducts(): Observable<boolean> {
         return this.http.get('/api/products')
                 .pipe(
@@ -23,6 +26,36 @@ export class DataService {
                         this.products = data;
                         return true;
                  }));
+    }
+
+    public get loginRequired(): boolean {
+        return this.token.length == 0 || this.tokenExpiration > new Date();
+    }
+
+    public login(creds) {
+        return this.http.post("/account/createtoken", creds)
+            .pipe(
+                map((response: any) => {
+                    let tokenInfo = response;
+                    this.token = tokenInfo.token;
+                    this.tokenExpiration = tokenInfo.expiration;
+                    return true;
+                }));
+    }
+
+    public checkout() {
+        if (!this.order.orderNumber) {
+            this.order.orderNumber = this.order.orderDate.getFullYear().toString() + this.order.orderDate.getTime().toString();
+        }
+
+        return this.http.post("/api/orders", this.order, {
+            headers: new HttpHeaders({ "Authorization": "Bearer " + this.token })
+        })
+            .pipe(
+                map(response => {
+                    this.order = new Order();
+                    return true;
+                }));
     }
 
     public AddToOrder(product: Product) {

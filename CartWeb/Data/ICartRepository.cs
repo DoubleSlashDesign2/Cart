@@ -16,6 +16,7 @@ namespace CartWeb.Data
         IEnumerable<Order> GetAllOrdersByUser(string username, bool includeItems);
 
         Order GetOrderById(string username, int id);
+        void AddOrder(Order newOrder);
 
         bool SaveAll();
         void AddEntity(object model);

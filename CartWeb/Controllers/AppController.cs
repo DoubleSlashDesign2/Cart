@@ -53,7 +53,7 @@ namespace CartWeb.Controllers
             return View();
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Shop()
         {
             var results = _repository.GetAllProducts();
