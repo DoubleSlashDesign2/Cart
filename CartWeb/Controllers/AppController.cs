@@ -1,6 +1,7 @@
 ﻿using CartWeb.Data;
 using CartWeb.Services;
 using CartWeb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,7 @@ namespace CartWeb.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Shop()
         {
             var results = _repository.GetAllProducts();

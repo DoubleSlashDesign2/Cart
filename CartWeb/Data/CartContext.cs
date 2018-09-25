@@ -1,4 +1,5 @@
 ﻿using CartWeb.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CartWeb.Data
 {
-    public class CartContext : DbContext
+    public class CartContext : IdentityDbContext<StoreUser>
     {
         public CartContext(DbContextOptions<CartContext> options): base(options)
         {

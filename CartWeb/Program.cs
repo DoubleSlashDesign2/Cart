@@ -29,7 +29,7 @@ namespace CartWeb
             using (var scope = scopeFactory.CreateScope())
             {
                 var seeder = scope.ServiceProvider.GetService<CartSeeder>();
-                seeder.Seed();
+                seeder.SeedAsync().Wait();
             }
         }
 
